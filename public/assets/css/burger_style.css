@@ -1,0 +1,22 @@
+body {
+    margin-top: 7%;
+    background-color: rgb(71, 27, 27);
+    color: white;
+}
+
+.navbar, .footer {
+    background-color: rgb(209, 138, 5);
+    color: black;
+}
+
+.burger-container {
+    background-color: rgb(90, 42, 42);
+}
+
+.burger-item {
+    line-height: 2rem;
+}
+
+.change-eaten {
+    line-height: 1rem;
+}
