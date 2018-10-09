@@ -1,35 +1,32 @@
 const express = require('express');
-const burger = require('../models/burger.js');
 const router = express.Router();
+const db = require('../models');
 
 
 router.get('/', (req, res) => {
-    burger.all(data => {
-        res.render('index', {burgers: data});
-    });
+    db.Burger.findAll({}).then(
+        data => res.render('index', {burgers: data})
+    );
 });
 
 router.post('/api/burgers/', (req, res) => {
-    burger.create(
-      ['burger_name', 'devoured'],
-      [req.body.burger_name, req.body.devoured],
-      result => res.json(result)
+    db.Burger.create({
+        burger_name: req.body.burger_name,
+        devoured: req.body.devoured
+    }).then(
+        burger => res.json(burger)
     );
 });
 
 router.put('/api/burgers/:id', (req, res) => {
-    const condition = `id=${req.params.id}`;
-
-    burger.eat(
-        { devoured: req.body.devoured },
-        condition,
-        result => {
-            if (result.changedRows == 0) {
-                return res.status(404).end();
-            } else {
-                res.status(200).end();
-            }
-        }
+    db.Burger.update({
+        devoured: req.body.devoured
+    }, {
+        where: {
+            id: req.params.id
+        }    
+    }).then(
+        burger => res.json(burger)
     );
 });
 
