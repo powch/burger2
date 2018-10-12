@@ -12,11 +12,9 @@ app.use(express.static('public'));
 app.engine('.hbs', hbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-const burgerRouter = require('./controllers/burgers_controller');
+require('./controllers/burgers_controller')(app);
 
-app.use(burgerRouter);
-
-db.sequelize.sync().then(
+db.sequelize.sync({force: true}).then(
     app.listen(PORT, () => console.log(`LISTENING ON PORT: ${PORT}`))
 );
     
